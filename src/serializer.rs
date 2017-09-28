@@ -27,17 +27,23 @@ impl<W> Serializer<W>
     }
 
     fn write_file(&mut self, f: &File) -> Result<&mut Self> {
+        let root = self.root.clone();
+        let relative_to_root = f.name().relative_to(&root)?;
+        let path_to_file = f.name();
+
         write!(self.writer,
                r#"File {{ 
-                path: r"{0}", 
-                contents: include_bytes!("{0}"), 
-                }}"#,
-               f.name().display())?;
+    path: r"{}", 
+    contents: include_bytes!(r"{}"), 
+}}"#,
+               relative_to_root.display(),
+               path_to_file.display())?;
 
         Ok(self)
     }
 
     pub fn dir_as_static(&mut self, name: &str, d: &Dir) -> Result<&mut Self> {
+        // TODO: insert a user supplied doc-comment here.
         write!(self.writer, "pub static {}: Dir = ", name)?;
         self.write_dir(d)?;
         writeln!(self.writer, ";")?;
@@ -46,11 +52,14 @@ impl<W> Serializer<W>
     }
 
     fn write_dir(&mut self, d: &Dir) -> Result<&mut Self> {
+        let parent_of_root = self.root.parent()
+            .unwrap_or(Path::new("/")).to_path_buf();
+
         writeln!(self.writer,
                r#"Dir {{
     path: r"{}",
     files: &["#,
-               d.path().relative_to(&self.root)?.display())?;
+               d.path().relative_to(&parent_of_root)?.display())?;
 
         for file in d.files() {
             self.write_file(file)?;

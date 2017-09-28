@@ -1,3 +1,45 @@
+pub static SRC: Dir = Dir {
+    path: r".",
+    files: &[
+        File {
+            path: r"lib.rs",
+            contents: include_bytes!(r"./lib.rs"),
+        },
+        File {
+            path: r"helpers.rs",
+            contents: include_bytes!(r"./helpers.rs"),
+        },
+        File {
+            path: r"serialized_std_definitions.rs",
+            contents: include_bytes!(r"./serialized_std_definitions.rs"),
+        },
+        File {
+            path: r"dirs.rs",
+            contents: include_bytes!(r"./dirs.rs"),
+        },
+        File {
+            path: r"files.rs",
+            contents: include_bytes!(r"./files.rs"),
+        },
+        File {
+            path: r"generated_example.rs",
+            contents: include_bytes!(r"./generated_example.rs"),
+        },
+        File {
+            path: r"serializer.rs",
+            contents: include_bytes!(r"./serializer.rs"),
+        },
+        File {
+            path: r"frontend.rs",
+            contents: include_bytes!(r"./frontend.rs"),
+        },
+        File {
+            path: r"serialized_globs_definitions.rs",
+            contents: include_bytes!(r"./serialized_globs_definitions.rs"),
+        },
+    ],
+    subdirs: &[],
+};
 
 /// A single static asset.
 #[derive(Clone, Copy, Debug, Hash, PartialEq)]
