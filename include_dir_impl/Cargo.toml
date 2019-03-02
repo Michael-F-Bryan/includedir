@@ -1,11 +1,12 @@
 [package]
 authors = ["Michael Bryan <michaelfbryan@gmail.com>"]
 name = "include_dir_impl"
-version = "0.2.1"
+version = "0.3.0"
 description = "Implementation crate for include_dir"
 license = "MIT"
 readme = "../README.md"
 repository = "https://github.com/Michael-F-Bryan/include_dir"
+edition = "2018"
 
 [badges.appveyor]
 branch = "master"
@@ -17,8 +18,8 @@ branch = "master"
 repository = "Michael-F-Bryan/include_dir"
 
 [dependencies]
-proc-macro-hack = "0.4"
-syn = "0.14.1"
+proc-macro-hack = "0.5"
+syn = "0.15"
 quote = "0.6.3"
 failure = "0.1.1"
 proc-macro2 = "0.4.4"
